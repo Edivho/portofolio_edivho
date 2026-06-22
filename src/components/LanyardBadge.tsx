@@ -294,12 +294,11 @@ export default function LanyardBadge() {
         style={{
           x: shadowX,
           y: shadowY,
-          blur: shadowBlur,
+          filter: useTransform(shadowBlur, (v) => `blur(${v}px)`), // Perbaikan properti blur yang valid menggunakan CSS filter
           scale: shadowScale,
         }}
-        className="absolute -bottom-6 w-[200px] h-[15px] bg-black/60 rounded-full blur-xl pointer-events-none z-10"
+        className="absolute -bottom-6 w-[200px] h-[15px] bg-black/60 rounded-full pointer-events-none z-10"
       />
     </div>
   );
 }
-

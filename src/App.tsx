@@ -25,7 +25,7 @@ export default function App() {
   const [currentUtcTime, setCurrentUtcTime] = useState('');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
-  // Auto rotate headlines every 5.5 seconds for a premium, clean experience
+  // Auto rotate headlines setiap 5.5 detik untuk pengalaman yang premium dan bersih
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveHeadlineIdx((prev) => (prev + 1) % BRAND_HEADLINES.length);
@@ -33,7 +33,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Update dynamic clock in Indonesian locale
+  // Update dynamic clock dengan format waktu lokal Indonesia (WIB/WITA/WIT)
   useEffect(() => {
     const updateTime = () => {
       const now = new Date();
@@ -64,7 +64,7 @@ export default function App() {
       <div className="absolute -left-1/4 top-1/3 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[130px] pointer-events-none" />
       <div className="absolute -right-1/4 top-2/3 w-[500px] h-[500px] bg-blue-700/5 rounded-full blur-[130px] pointer-events-none" />
 
-      {/* Grid line overlay to give a premium technical look and structure */}
+      {/* Grid line overlay untuk memberikan tampilan teknis premium dan berstruktur */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#141414_1px,transparent_1px),linear-gradient(to_bottom,#141414_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35 pointer-events-none" />
 
       {/* Frosted Floating Navigation Header */}
@@ -81,7 +81,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Nav items for quick jumping */}
+          {/* Nav items untuk navigasi lompat cepat halaman */}
           <div className="hidden lg:flex items-center gap-6 text-xs text-zinc-400 font-mono font-medium">
             <a href="#about" className="hover:text-blue-400 transition-colors">TENTANG SAYA</a>
             <a href="#skills" className="hover:text-blue-400 transition-colors">PAMERAN SKILL</a>
@@ -90,9 +90,13 @@ export default function App() {
             <a href="#contact-hub" className="hover:text-blue-400 transition-colors">RECRUITER HUB</a>
           </div>
 
+          {/* Fitur Download CV otomatis langsung di navbar dengan penanganan blokir browser keamanan */}
           <div className="flex items-center gap-2">
             <a 
-              href="#contact-hub" 
+              href={`${window.location.origin}/CV_Edivho_Febrian_Putra.pdf`}
+              download="CV_Edivho_Febrian_Putra.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-xs font-mono font-medium tracking-wide bg-gradient-to-r from-blue-950/40 to-indigo-950/40 border border-blue-800/40 hover:border-blue-500/50 text-blue-300 hover:text-white px-3.5 py-2 rounded-xl transition-all shadow-inner"
             >
               Unduh CV & Kontak
@@ -101,17 +105,17 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Floating Widget: Real-time clock in Indo locale to show technical integration */}
+      {/* Floating Widget: Jam waktu nyata (WIB) untuk integrasi fungsionalitas teknis */}
       <div className="absolute right-4 md:right-8 top-28 z-20 flex items-center gap-2 bg-zinc-900/40 border border-zinc-850 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-mono text-zinc-400">
         <Clock className="w-3 h-3 text-blue-400 animate-pulse" />
         <span>JKT: {currentUtcTime || 'Memuat...'}</span>
       </div>
 
-      {/* Hero Section styled strictly according to the user's reference */}
+      {/* Hero Section */}
       <header id="hero" className="py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto relative pointer-events-auto z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Clean technical alignment & copywriting */}
+          {/* Kolom Kiri: Penyelarasan teknis minimalis & copywriting utama */}
           <div className="lg:col-span-7 flex flex-col text-left items-start">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900/60 border border-zinc-800 text-xs text-blue-400 font-mono tracking-wider uppercase mb-5 shadow-sm">
               <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
@@ -131,7 +135,7 @@ export default function App() {
               Menciptakan produk website modern dengan tampilan clean, responsif, dan elegan. Menggabungkan ketangguhan sistem informasi Universitas Bakrie dengan keahlian rekayasa perangkat lunak fungsional untuk mengeskalasi nilai bisnis.
             </p>
             
-            {/* Minimal Technology Tags */}
+            {/* Tag Teknologi Minimalis */}
             <div className="flex flex-wrap gap-2.5 mt-8 max-w-xl">
               {['TypeScript', 'React.js', 'Tailwind CSS', 'Supabase', 'SQL Systems'].map((tech) => (
                 <span key={tech} className="px-3.5 py-1.5 rounded-lg bg-zinc-900/50 border border-zinc-800/80 text-xs font-mono text-zinc-400 font-medium hover:border-blue-500/30 hover:text-zinc-250 transition-all duration-350">
@@ -140,7 +144,7 @@ export default function App() {
               ))}
             </div>
 
-            {/* Landing Navigation and Action Clicks */}
+            {/* Tombol Aksi Utama */}
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-10 w-full sm:w-auto">
               <a
                 href="#projects"
@@ -158,7 +162,7 @@ export default function App() {
               </button>
             </div>
 
-            {/* Status Lines mimicking target reference precisely */}
+            {/* Indikator Status Tambahan */}
             <div className="flex flex-col gap-2 mt-12 text-zinc-500 text-xs font-mono">
               <p className="flex items-center gap-2 select-none hover:text-zinc-400 transition-colors">
                 <span className="text-blue-500 font-bold">↓</span> explore my work below
@@ -169,7 +173,7 @@ export default function App() {
             </div>
           </div>
           
-          {/* Right Column: Lanyard hanging Badge display block */}
+          {/* Kolom Kanan: Tampilan Gantungan Lanyard Kartu Identitas Interaktif */}
           <div className="lg:col-span-5 flex items-center justify-center relative mt-8 lg:mt-0">
             <LanyardBadge />
           </div>
@@ -185,7 +189,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* Info strip with Indonesian focus */}
+      {/* Info Strip Kompetensi */}
       <div className="bg-zinc-950/40 border-y border-zinc-900/60 py-4 px-4 overflow-hidden select-none">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-around gap-y-3 gap-x-6 text-[10px] sm:text-xs font-mono text-zinc-500 uppercase tracking-widest">
           <span className="flex items-center gap-2"><Terminal className="w-4 h-4 text-blue-500/80" /> Mahasiswa Sistem Informasi At Universitas Bakrie</span>
@@ -196,19 +200,19 @@ export default function App() {
         </div>
       </div>
 
-      {/* About Section */}
+      {/* Tentang Saya Section Component */}
       <AboutSection />
 
-      {/* Skills Showcase Section */}
+      {/* Showcase Kompetensi/Skill Section Component */}
       <TechShowcase />
 
-      {/* Recruiter highlights validation highlights */}
+      {/* Recruiter Validation Highlights Section Component */}
       <RecruiterHighlights />
 
-      {/* Recruiter Local Hub Integration */}
+      {/* Recruiter Local Hub Integration Component */}
       <RecruiterConsole />
 
-      {/* Global minimal styled footer panel */}
+      {/* Global Minimal Footers */}
       <footer className="border-t border-zinc-900/80 bg-zinc-950/60 py-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-zinc-500 font-mono">
           <div className="flex flex-col gap-2">
@@ -216,7 +220,7 @@ export default function App() {
             <p className="text-[11px]">Mahasiswa Universitas Bakrie • Jakarta, Indonesia</p>
           </div>
 
-          {/* Social Links */}
+          {/* Media Sosial Hub */}
           <div className="flex items-center gap-4">
             <a 
               href="mailto:edivho01@gmail.com" 
@@ -226,7 +230,7 @@ export default function App() {
               <Mail className="w-4 h-4" />
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="https://linkedin.com/in/edivho-febrian-putra" 
               target="_blank" 
               rel="noreferrer" 
               className="p-2 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:text-cyan-400 rounded-lg transition-colors"
