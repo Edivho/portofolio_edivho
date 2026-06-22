@@ -1,7 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, animate } from 'motion/react';
 import { PERSONAL_INFO } from '../data';
-import { ShieldCheck, Barcode, HelpCircle } from 'lucide-react';
+import { Barcode } from 'lucide-react';
+
+// 1. IMPORT FOTO SECARA MODULAR AGAR TERDETEKSI SAAT PROSES BUILD DI VERCEL
+import badgePhoto from '../assets/images/edivho_badge_photo_1781964134515.png';
 
 export default function LanyardBadge() {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -147,7 +150,6 @@ export default function LanyardBadge() {
 
       {/* Elegant hanging lanyard strap extending to the top boundary */}
       <div className="absolute top-0 bottom-[310px] w-[24px] pointer-events-none z-0 flex flex-col items-center overflow-hidden">
-        {/* Repeating strap texture like in the reference "3D CARD" */}
         <div className="w-[12px] h-full bg-zinc-950 border-x border-zinc-800/80 flex flex-col gap-2 items-center justify-around py-2">
           <span className="text-[6px] tracking-[0.15em] font-mono font-bold text-zinc-700 origin-center rotate-90 my-1">EDIVHO DEV</span>
           <span className="text-[6px] tracking-[0.15em] font-mono font-bold text-zinc-700 origin-center rotate-90 my-1">EDIVHO DEV</span>
@@ -166,7 +168,6 @@ export default function LanyardBadge() {
 
       {/* Dynamic Retractable Metallic Tension String drawing coordinate line */}
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-15 style-string-layer" style={{ overflow: 'visible' }}>
-        {/* Steel core drop-shadow sleeve */}
         <motion.line
           x1={140}
           y1={154}
@@ -176,7 +177,6 @@ export default function LanyardBadge() {
           strokeWidth="3.5"
           strokeLinecap="round"
         />
-        {/* High tension nylon fiber blue thread */}
         <motion.line
           x1={140}
           y1={154}
@@ -186,7 +186,6 @@ export default function LanyardBadge() {
           strokeWidth="2"
           strokeLinecap="round"
         />
-        {/* Glow core reflection light */}
         <motion.line
           x1={140}
           y1={154}
@@ -198,7 +197,7 @@ export default function LanyardBadge() {
         />
       </svg>
 
-      {/* Main interactive 3D motion container card body - Draggable and Responsive! */}
+      {/* Main interactive 3D motion container card body */}
       <motion.div
         ref={cardRef}
         drag
@@ -223,11 +222,10 @@ export default function LanyardBadge() {
         }}
         className="w-[280px] h-[390px] mt-[160px] bg-[#111111]/95 text-zinc-200 rounded-2xl border-2 border-zinc-800/90 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col p-4 backdrop-blur-md cursor-grab active:cursor-grabbing group z-20"
       >
-        {/* Subtle white gloss reflection cover overlay */}
         <div className="absolute inset-x-0 top-0 h-[170px] bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
         <div className="absolute -inset-y-20 -left-20 w-40 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-45 transform pointer-events-none group-hover:translate-x-96 transition-transform duration-1000 ease-out" />
 
-        {/* Lanyard punch hole cut out at the top of the card */}
+        {/* Lanyard punch hole cut out */}
         <div className="w-full flex justify-center mb-4 pt-1">
           <div className="w-10 h-3 rounded-full bg-zinc-950 border border-zinc-850/80 shadow-inner flex items-center justify-around px-2">
             <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
@@ -250,15 +248,13 @@ export default function LanyardBadge() {
             </div>
           </div>
 
-          {/* Centered Profile Picture - exactly matching generated avatar */}
+          {/* Centered Profile Picture - MENGGUNAKAN VARIABEL IMPORT UTAMA */}
           <div className="flex-1 overflow-hidden rounded-lg border border-zinc-850 relative bg-zinc-900 group-hover:border-zinc-700/80 transition-colors">
             <img 
-              src={PERSONAL_INFO.avatar} 
+              src={badgePhoto} 
               alt={PERSONAL_INFO.name} 
-              referrerPolicy="no-referrer"
               className="w-full h-full object-cover rounded-lg saturate-[0.85] contrast-[1.05] hover:saturate-100 transition-all duration-300 pointer-events-none"
             />
-            {/* Ambient vignette inner mask */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
           </div>
 
@@ -294,7 +290,7 @@ export default function LanyardBadge() {
         style={{
           x: shadowX,
           y: shadowY,
-          filter: useTransform(shadowBlur, (v) => `blur(${v}px)`), // Perbaikan properti blur yang valid menggunakan CSS filter
+          filter: useTransform(shadowBlur, (v) => `blur(${v}px)`),
           scale: shadowScale,
         }}
         className="absolute -bottom-6 w-[200px] h-[15px] bg-black/60 rounded-full pointer-events-none z-10"
