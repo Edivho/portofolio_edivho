@@ -4,11 +4,9 @@ import {
   Send, 
   Sparkles, 
   Mail, 
-  MessageSquareCode, 
   Trash2, 
   CheckCircle2, 
   ExternalLink,
-  ChevronRight,
   Briefcase
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data';
@@ -28,12 +26,13 @@ export default function RecruiterConsole() {
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState('Koneksi Baru');
+  const [role] = useState('Koneksi Baru');
   const [message, setMessage] = useState('');
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationError, setValidationError] = useState('');
 
-  // Load sent messages from localStorage to simulate local persistence
+  // Memuat pesan lokal dari localStorage saat komponen pertama kali dimuat
   useEffect(() => {
     try {
       const stored = localStorage.getItem('edivho_recruiter_submissions');
@@ -41,47 +40,93 @@ export default function RecruiterConsole() {
         setMessages(JSON.parse(stored));
       }
     } catch (e) {
-      console.error("Failed to load local messages database", e);
+      console.error("Gagal memuat basis data pesan lokal:", e);
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError('');
+    
     if (!name || !email || !message) {
       setValidationError("Harap lengkapi nama, email, dan pesan anda.");
       return;
     }
 
-    const newMessage: RecruiterMessage = {
-      id: Math.random().toString(36).substr(2, 9),
-      name,
-      company: company || 'Independen / Pribadi',
-      email,
-      role,
-      message,
-      timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' - Hari Ini',
-    };
+    setIsSubmitting(true);
 
-    const updated = [newMessage, ...messages];
-    setMessages(updated);
-    try {
-      localStorage.setItem('edivho_recruiter_submissions', JSON.stringify(updated));
-    } catch (e) {
-      console.error(e);
-    }
-
-    // Reset Form
-    setName('');
-    setCompany('');
-    setEmail('');
-    setMessage('');
-    setIsSubmitSuccess(true);
+    // Menyusun struktur data form
+    const formData = new FormData();
+    formData.append("access_key", "6d0ded13-e423-4d40-9676-0253d2f83101");
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("subject", `💼 Tawaran Baru dari ${company || 'Independen'}`);
     
-    // Auto clear success alert after 4s
-    setTimeout(() => {
-      setIsSubmitSuccess(false);
-    }, 4000);
+    // Parameter krusial untuk melatih Gmail agar mengenali pengirim resmi (Anti-Spam)
+    formData.append("from_name", "Portfolio Edivho Contact Hub");
+
+    // Format isi pesan yang akan dikirimkan ke Gmail pribadi Anda
+    const detailPesan = `
+Nama Pengirim: ${name}
+Perusahaan/Organisasi: ${company || 'Independen / Pribadi'}
+Email Kontak: ${email}
+Tipe Hubungan: ${role}
+
+Isi Pesan:
+"${message}"
+    `.trim();
+    
+    formData.append("message", detailPesan);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData, // Mengirimkan objek FormData langsung
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Simpan ke antrean log lokal jika pengiriman ke email utama berhasil
+        const newMessage: RecruiterMessage = {
+          id: Math.random().toString(36).substr(2, 9),
+          name,
+          company: company || 'Independen / Pribadi',
+          email,
+          role,
+          message,
+          timestamp: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' - Hari Ini',
+        };
+
+        const updated = [newMessage, ...messages];
+        setMessages(updated);
+        
+        try {
+          localStorage.setItem('edivho_recruiter_submissions', JSON.stringify(updated));
+        } catch (err) {
+          console.error(err);
+        }
+
+        // Reset Form Inputs & Tampilkan Banner Sukses
+        setName('');
+        setCompany('');
+        setEmail('');
+        setMessage('');
+        setIsSubmitSuccess(true);
+        
+        // Sembunyikan banner sukses secara otomatis setelah 4 detik
+        setTimeout(() => {
+          setIsSubmitSuccess(false);
+        }, 4000);
+      } else {
+        setValidationError(result.message || "Gagal mengirim pesan ke server. Silakan coba lagi.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setValidationError("Terjadi kesalahan jaringan atau CORS block. Silakan periksa koneksi Anda.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClear = () => {
@@ -105,13 +150,13 @@ export default function RecruiterConsole() {
           Hubungi <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent italic font-normal pr-1px">Edivho Sekarang</span>
         </h2>
         <p className="text-zinc-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-          Apakah Anda seorang recruiter atau pimpinan tim? Gunakan terminal penawaran lokal di bawah ini untuk mengirimkan undangan wawancara, tawaran kolaborasi, atau kueri bisnis.
+          Apakah Anda seorang recruiter atau pimpinan tim? Gunakan terminal penawaran di bawah ini untuk mengirimkan undangan wawancara, tawaran kolaborasi, atau kueri bisnis langsung ke email pribadi saya.
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Left Side: Recruiter Form Console (7 Columns) */}
+        {/* Left Side: Recruiter Form Console */}
         <div className="lg:col-span-7 bg-zinc-900/10 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 backdrop-blur-xl relative">
           
           <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 font-serif">
@@ -132,10 +177,11 @@ export default function RecruiterConsole() {
                 <input
                   type="text"
                   required
+                  disabled={isSubmitting}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Budi Gunawan"
-                  className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-sans"
+                  className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-sans disabled:opacity-50"
                 />
               </div>
 
@@ -143,10 +189,11 @@ export default function RecruiterConsole() {
                 <label className="text-[11px] font-mono font-semibold text-zinc-400 uppercase tracking-wider block">Nama Perusahaan / Organisasi</label>
                 <input
                   type="text"
+                  disabled={isSubmitting}
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   placeholder="PT Inovasi Digital"
-                  className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-sans"
+                  className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-sans disabled:opacity-50"
                 />
               </div>
             </div>
@@ -156,10 +203,11 @@ export default function RecruiterConsole() {
               <input
                 type="email"
                 required
+                disabled={isSubmitting}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="recruiter@company.com"
-                className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-mono"
+                className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-mono disabled:opacity-50"
               />
             </div>
 
@@ -168,10 +216,11 @@ export default function RecruiterConsole() {
               <textarea
                 required
                 rows={4}
+                disabled={isSubmitting}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tuliskan detail undangan wawancara atau ide kemitraan Anda di sini..."
-                className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-605 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-sans"
+                className="w-full bg-zinc-950/80 border border-zinc-800/80 rounded-xl py-2.5 px-4 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all font-sans disabled:opacity-50"
               />
             </div>
 
@@ -182,15 +231,16 @@ export default function RecruiterConsole() {
               
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white text-sm font-bold tracking-wide shadow-md shadow-blue-950/20 hover:shadow-blue-400/10 cursor-pointer transition-all"
+                disabled={isSubmitting}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white text-sm font-bold tracking-wide shadow-md shadow-blue-950/20 hover:shadow-blue-400/10 cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>Kirim Penawaran</span>
+                <span>{isSubmitting ? "Mengirim..." : "Kirim Penawaran"}</span>
                 <Send className="w-4 h-4" />
               </button>
             </div>
           </form>
 
-          {/* Form success banner */}
+          {/* Form success overlay banner */}
           <AnimatePresence>
             {isSubmitSuccess && (
               <motion.div
@@ -202,9 +252,9 @@ export default function RecruiterConsole() {
                 <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-4 animate-bounce">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
-                <h4 className="text-lg font-bold text-white mb-2">Penawaran Berhasil Dikirim!</h4>
+                <h4 className="text-lg font-bold text-white mb-2">Penawaran Berhasil Terkirim!</h4>
                 <p className="text-zinc-400 text-xs sm:text-sm max-w-sm mb-6">
-                  Terima kasih, penawaran diserahkan ke sandbox antrean lokal. Edivho akan merespons melalui alamat email pengirim.
+                  Terima kasih, pesan Anda sudah sukses diteruskan langsung ke email pribadi Edivho. Notifikasi salinan juga masuk ke sandbox antrean lokal.
                 </p>
                 <button
                   onClick={() => setIsSubmitSuccess(false)}
@@ -217,7 +267,7 @@ export default function RecruiterConsole() {
           </AnimatePresence>
         </div>
 
-        {/* Right Side: Local Submissions Ledger Log (5 Columns) */}
+        {/* Right Side: Local Submissions Ledger Log */}
         <div className="lg:col-span-5 flex flex-col h-full">
           <div className="bg-zinc-900/10 border border-zinc-800/50 rounded-2xl p-6 flex flex-col h-full min-h-[360px] justify-between">
             <div className="space-y-4">
@@ -238,7 +288,7 @@ export default function RecruiterConsole() {
                 )}
               </div>
 
-              {/* Messages list container */}
+              {/* Messages list scroller */}
               <div className="space-y-3.5 max-h-[300px] overflow-y-auto pr-1">
                 <AnimatePresence initial={false}>
                   {messages.map((msg) => (
@@ -280,12 +330,12 @@ export default function RecruiterConsole() {
               </div>
             </div>
 
-            {/* Direct Email Link card */}
+            {/* Direct Email Link bottom card */}
             <div className="mt-6 pt-4 border-t border-zinc-800/60 text-center">
               <span className="text-[11px] text-zinc-500 block mb-2 font-sans">Ingin komunikasi langsung via inbox?</span>
               <a
                 href={`mailto:${PERSONAL_INFO.email}`}
-                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-zinc-950 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-xs font-bold font-mono text-zinc-305 hover:text-blue-400 transition-all cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-zinc-950 hover:bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-xs font-bold font-mono text-zinc-300 hover:text-blue-400 transition-all cursor-pointer"
               >
                 <span>{PERSONAL_INFO.email}</span>
                 <ExternalLink className="w-3.5 h-3.5" />

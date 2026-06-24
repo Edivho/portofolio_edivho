@@ -10,8 +10,10 @@ export const PERSONAL_INFO = {
   github: 'https://github.com', // Placeholder or standard profile
   linkedin: 'https://linkedin.com',
   bioEn: 'I am an Information Systems student at Universitas Bakrie with a strong passion for software development, web technologies, and digital product innovation. I enjoy building scalable applications, designing user-friendly interfaces, and solving business problems through technology. My experience spans full-stack web development, database management, UI/UX design, and project leadership through organizational and software development activities.',
-  bioId: 'Saya adalah mahasiswa Sistem Informasi di Universitas Bakrie dengan ketertarikan mendalam dalam pengembangan perangkat lunak, teknologi web, dan inovasi produk digital. Saya senang membangun aplikasi yang skalabel, merancang antarmuka pengguna yang ramah, serta memecahkan masalah bisnis melalui teknologi. Pengalaman saya mencakup pengembangan web full-stack, manajemen basis data, desain UI/UX, dan kepemimpinan proyek melalui aktivitas organisasi serta pengembangan peranti lunak.',
+  bioId: 'Saya adalah mahasiswa Sistem Informasi di Universitas Bakrie dengan ketertarikan mendalam dalam pengembangan perangkat lunak, teknologi web, dan inovasi produk digital. Saya senang membangun website yang skalabel, merancang antarmuka pengguna yang ramah, serta memecahkan masalah bisnis melalui teknologi. Pengalaman saya mencakup pengembangan web full-stack, manajemen basis data, desain UI/UX, dan kepemimpinan proyek melalui aktivitas organisasi serta pengembangan perangkat lunak.',
   avatar: '/src/assets/images/edivho_badge_photo_1781964134515.png',
+  // Properti tautan sertifikat asli Data Academy
+  certificateUrl: '/Sertifikasi_Data Academy.pdf',
 };
 
 export const BRAND_HEADLINES = [
@@ -280,8 +282,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'its_threedi',
-    title: 'Its.Threedi',
-    description: 'Platform penemuan sosial-commerce modern di mana pengguna dapat mengeksplorasi katalog kurasi produk digital secara interaktif dengan antarmuka dinamis dan transaksi sosial yang terpadu.',
+    title: 'Landing Page Its.Threedi',
+    description: 'Website Landing Page untuk thrifting store dan memperkenalkan store Its.Threedi.',
     techStack: ['React.js', 'JavaScript', 'Tailwind CSS', 'UI/UX Design', 'Social Commerce'],
     category: 'Inovasi E-Commerce Sosial',
     features: [
@@ -312,9 +314,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'wonosobo_gis',
-    title: 'Wonosobo GIS (Kapita Selekta)',
+    title: 'Website GIS Track Gunung',  
     description: 'Website Sistem Informasi Geografis (GIS) wilayah Wonosobo jawa tengah yang saya kembangkan secara responsif untuk memetakan zona kawasan pendakian gunung (Sindoro, Kembang), elevasi puncak, koordinasi titik pos istirahat, dan penyajian data spasial interaktif.',
-    techStack: ['HTML', 'CSS', 'JavaScript', 'Leaflet.js', 'GIS Mapping'],
+    techStack: ['HTML', 'CSS', 'GIS Mapping'],
     category: 'Geographic Information System',
     features: [
       'Pemetaan Rute Jalur Pendakian',
@@ -340,8 +342,8 @@ export const RECRUITER_REASONS: RecruiterReason[] = [
     id: 'reason_2',
     iconName: 'Users',
     title: 'Pengalaman Memimpin Organisasi Mahasiswa',
-    description: 'Pernah memimpin sebagai Ketua Pelaksana ISO (ospek jurusan) di HMSI, dan sekarang menjabat sebagai Wakil Ketua HMSI di periode kedua.',
-    extendedDetail: 'Sebagai mahasiswa Sistem Informasi di Universitas Bakrie, saya memiliki rekam jejak kepemimpinan aktif. Saya pernah memimpin sebagai Ketua Pelaksana ISO (ospek jurusan) yang merupakan salah satu program kerja Himpunan Mahasiswa Sistem Informasi (HMSI), dan saat ini saya dipercaya menjabat sebagai Wakil Ketua HMSI di periode kedua untuk memimpin koordinasi internal serta menyukseskan program kerja taktis himpunan.',
+    description: 'Pernah memimpin sebagai Wakil Ketua Himpunan Mahasiswa Sistem Informasi (HMSI) dan Ketua Pelaksana ISO (ospek jurusan) di HMSI.',
+    extendedDetail: 'Sebagai mahasiswa Sistem Informasi di Universitas Bakrie, saya memiliki rekam jejak kepemimpinan aktif di Organisasi Himpunan.',
   },
   {
     id: 'reason_3',
@@ -349,13 +351,6 @@ export const RECRUITER_REASONS: RecruiterReason[] = [
     title: 'Proyek Pengembangan Perangkat Lunak Praktis',
     description: 'Memiliki portfolio aplikasi nyata yang berjalan baik dengan database modern, bukan sekadar teori akademis.',
     extendedDetail: 'Portofolio saya mendemonstrasikan kapabilitas operasional konkret dengan stack andalan seperti React, TypeScript, dan SQL/Supabase, yang dirakit dengan standar kualitas industri dan best practices terkini.',
-  },
-  {
-    id: 'reason_4',
-    iconName: 'Workflow',
-    title: 'Paham Penyelarasan Bisnis & Teknologi',
-    description: 'Menganalisis sistem informasi dari perspektif penciptaan nilai komersial maupun kegunaan teknikalnya.',
-    extendedDetail: 'Latar belakang Sistem Informasi membekali saya untuk menerjemahkan kebutuhan bisnis stakeholder menjadi spesifikasi fitur teknis secara mulus, menjaga keselarasan fungsionalitas dan ROI solusi digital.',
   },
   {
     id: 'reason_5',

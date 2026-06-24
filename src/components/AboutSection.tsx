@@ -117,7 +117,7 @@ export default function AboutSection() {
 
           <div className="bg-zinc-950/40 rounded-xl p-3 border border-zinc-800/50 text-center font-mono text-[10px] text-zinc-500 flex items-center justify-center gap-2">
             <CircleDot className="w-3 h-3 text-blue-400 animate-pulse" />
-            <span>Aktif kuliah & koding mandiri</span>
+            <span>Aktif kuliah </span>
           </div>
         </motion.div>
 

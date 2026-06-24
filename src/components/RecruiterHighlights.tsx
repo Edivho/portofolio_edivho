@@ -14,6 +14,11 @@ import {
   FileCheck2
 } from 'lucide-react';
 
+// ==========================================
+// 1. IMPORT FILE GAMBAR HMSI DI SINI
+// ==========================================
+import fotoHmsi from '../assets/images/foto_hmsi.png';
+
 // Icon mapper helper
 const getHighlightIcon = (iconName: string) => {
   switch (iconName) {
@@ -142,11 +147,25 @@ export default function RecruiterHighlights() {
                           </p>
 
                           <div className="space-y-2">
-                            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block">Studi Kasus & Implementasi</span>
+                            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest block"> </span>
                             <p className="text-zinc-400 text-xs sm:text-sm leading-normal">
                               {activeReason.extendedDetail}
                             </p>
                           </div>
+
+                          {/* ==========================================
+                             2. RENDER GAMBAR JIKA DATA YANG AKTIF ADALAH HMSI
+                             (Sesuaikan 'reason_2' dengan ID data organisasimu)
+                             ========================================== */}
+                          {activeReasonId === 'reason_2' && (
+                            <div className="mt-3 rounded-xl overflow-hidden border border-zinc-850 bg-zinc-950/40 p-1 max-h-[200px] group/img">
+                              <img 
+                                src={fotoHmsi} 
+                                alt="Dokumentasi Kegiatan HMSI" 
+                                className="w-full h-full object-cover rounded-lg opacity-85 group-hover/img:opacity-100 transition-opacity duration-300"
+                              />
+                            </div>
+                          )}
                         </div>
 
                         {/* Checklist showing validation of standard recruitment expectations */}

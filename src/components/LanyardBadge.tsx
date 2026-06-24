@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, animate } from 'motion/react';
 import { PERSONAL_INFO } from '../data';
-import { Barcode } from 'lucide-react';
+import { Barcode, Award } from 'lucide-react';
 
 // 1. IMPORT FOTO SECARA MODULAR AGAR TERDETEKSI SAAT PROSES BUILD DI VERCEL
 import badgePhoto from '../assets/images/edivho_badge_photo_1781964134515.png';
@@ -140,16 +140,16 @@ export default function LanyardBadge() {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-[460px] w-[280px] mx-auto select-none">
+    <div className="relative flex flex-col items-center justify-center min-h-[500px] w-[280px] mx-auto select-none">
       
       {/* Dynamic interactive tutorial badge showing drag capability helper */}
       <div className="absolute top-4 pointer-events-none z-30 select-none px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-[10px] font-mono text-zinc-400 font-bold tracking-wide uppercase flex items-center gap-1.5 shadow-md animate-pulse">
         <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping" />
-        Geser / Seret Kartu (Drag Me)
+        
       </div>
 
       {/* Elegant hanging lanyard strap extending to the top boundary */}
-      <div className="absolute top-0 bottom-[310px] w-[24px] pointer-events-none z-0 flex flex-col items-center overflow-hidden">
+      <div className="absolute top-0 bottom-[350px] w-[24px] pointer-events-none z-0 flex flex-col items-center overflow-hidden">
         <div className="w-[12px] h-full bg-zinc-950 border-x border-zinc-800/80 flex flex-col gap-2 items-center justify-around py-2">
           <span className="text-[6px] tracking-[0.15em] font-mono font-bold text-zinc-700 origin-center rotate-90 my-1">EDIVHO DEV</span>
           <span className="text-[6px] tracking-[0.15em] font-mono font-bold text-zinc-700 origin-center rotate-90 my-1">EDIVHO DEV</span>
@@ -220,7 +220,7 @@ export default function LanyardBadge() {
           rotateY: rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="w-[280px] h-[390px] mt-[160px] bg-[#111111]/95 text-zinc-200 rounded-2xl border-2 border-zinc-800/90 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col p-4 backdrop-blur-md cursor-grab active:cursor-grabbing group z-20"
+        className="w-[280px] h-[430px] mt-[160px] bg-[#111111]/95 text-zinc-200 rounded-2xl border-2 border-zinc-800/90 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] relative overflow-hidden flex flex-col p-4 backdrop-blur-md cursor-grab active:cursor-grabbing group z-20"
       >
         <div className="absolute inset-x-0 top-0 h-[170px] bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
         <div className="absolute -inset-y-20 -left-20 w-40 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-45 transform pointer-events-none group-hover:translate-x-96 transition-transform duration-1000 ease-out" />
@@ -279,6 +279,20 @@ export default function LanyardBadge() {
                 <Barcode className="w-6 h-3 text-zinc-500" />
               </div>
             </div>
+
+            {/* BARU: Tombol Aksi Langsung ke Sertifikat Asli Data Academy */}
+            <div className="mt-2.5 pt-2 border-t border-zinc-900/40">
+              <a
+                href={`${window.location.origin}/Sertifikasi_Data Academy.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-blue-950/40 hover:bg-blue-950/70 border border-blue-900/50 hover:border-blue-500/70 text-blue-400 hover:text-blue-300 text-[9px] font-mono font-bold tracking-wide uppercase transition-all shadow-sm"
+              >
+                <Award className="w-3 h-3 text-blue-400" />
+                Lihat Sertifikasi BNSP
+              </a>
+            </div>
+
           </div>
 
         </div>
@@ -297,4 +311,4 @@ export default function LanyardBadge() {
       />
     </div>
   );
-}
+} 
