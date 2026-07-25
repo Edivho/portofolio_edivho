@@ -272,6 +272,68 @@ const renderProjectMockup = (id: string) => {
           </div>
         </div>
       );
+    case 'webgis_uas_final':
+      return (
+        <div className="w-full h-44 bg-[#09131f] border border-blue-900/40 rounded-xl overflow-hidden relative font-sans text-left text-zinc-200 select-none flex flex-col justify-between shadow-inner">
+          {/* Top Bar WebGIS */}
+          <div className="flex items-center justify-between bg-zinc-950/80 px-2.5 py-1 text-[8px] border-b border-blue-900/30 z-20">
+            <div className="flex items-center gap-1 font-bold text-blue-400">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="tracking-wide">WebGIS Interactive Portal</span>
+            </div>
+            <div className="flex items-center gap-1 text-[6px] text-zinc-400 font-mono">
+              <span className="bg-blue-950/80 px-1 py-0.5 rounded border border-blue-800/40 text-cyan-300">Aceh Region</span>
+              <span>118.01° E</span>
+            </div>
+          </div>
+
+          {/* Canvas Map Simulation */}
+          <div className="absolute inset-0 top-6 bg-[#0c1829]">
+            {/* Grid Map Background */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:16px_16px] opacity-40" />
+            
+            {/* Spatial Contour/Shape Vector Simulation */}
+            <svg className="absolute inset-0 w-full h-full opacity-60 pointer-events-none" viewBox="0 0 200 100">
+              <path d="M20 30 Q50 10, 90 40 T160 30 T180 80 T110 90 T40 70 Z" fill="#0284c7" fillOpacity="0.15" stroke="#38bdf8" strokeWidth="0.8" strokeDasharray="2 1" />
+              <path d="M60 45 Q90 30, 120 50 T150 70 T100 80 Z" fill="#0ea5e9" fillOpacity="0.25" stroke="#0284c7" strokeWidth="1" />
+            </svg>
+
+            {/* Map Markers & Pins */}
+            <div className="absolute top-[35%] left-[42%] z-10 flex flex-col items-center group/pin">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full border border-white shadow-[0_0_8px_#22d3ee] animate-bounce" />
+              <div className="bg-zinc-950/90 border border-cyan-500/50 text-[5px] font-extrabold px-1 py-0.5 rounded text-cyan-300 shadow-md backdrop-blur-xs mt-0.5">
+                Banda Aceh
+              </div>
+            </div>
+
+            <div className="absolute top-[58%] left-[65%] z-10 flex flex-col items-center">
+              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full border border-white shadow-[0_0_6px_#fbbf24]" />
+              <div className="bg-zinc-950/90 border border-amber-500/40 text-[4.5px] font-bold px-1 rounded text-amber-200 mt-0.5">
+                Lhokseumawe
+              </div>
+            </div>
+
+            {/* Left Control Panel / Layer Switcher Widget */}
+            <div className="absolute top-2 left-2 z-10 bg-zinc-950/85 border border-zinc-800 p-1 rounded-md w-[65px] backdrop-blur-md flex flex-col gap-1 shadow-lg">
+              <span className="text-[5px] font-bold text-zinc-400 uppercase tracking-wider">Map Layers</span>
+              <div className="flex items-center gap-1 text-[5px] text-cyan-300 bg-cyan-950/60 p-0.5 rounded border border-cyan-800/40">
+                <span className="w-1 h-1 bg-cyan-400 rounded-full" />
+                <span className="truncate">Spatial Vector</span>
+              </div>
+              <div className="flex items-center gap-1 text-[5px] text-zinc-400 p-0.5">
+                <span className="w-1 h-1 bg-zinc-600 rounded-full" />
+                <span className="truncate">Topography</span>
+              </div>
+            </div>
+
+            {/* Map Controls (Zoom In / Out) */}
+            <div className="absolute bottom-2 right-2 z-10 bg-zinc-950/80 border border-zinc-800 rounded flex flex-col text-[7px] text-zinc-300 font-bold overflow-hidden">
+              <button className="px-1.5 py-0.5 border-b border-zinc-800 hover:bg-zinc-800">+</button>
+              <button className="px-1.5 py-0.5 hover:bg-zinc-800">-</button>
+            </div>
+          </div>
+        </div>
+      );
     default:
       return <div className="w-full h-44 bg-zinc-900 rounded-xl flex items-center justify-center text-zinc-500 text-xs">Mockup View</div>;
   }

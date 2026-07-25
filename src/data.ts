@@ -262,7 +262,7 @@ export const PROJECTS: Project[] = [
     ],
     businessValue: 'Meningkatkan transparansi beban kerja tim sebesar 40% dan mengeliminasi latensi koordinasi menggunakan push-notification bawaan.',
     mockupBg: 'bg-gradient-to-tr from-cyan-950 via-teal-900 to-emerald-950',
-    externalUrl: 'https://web-we-work-thpv.vercel.app',
+    externalUrl: '',
   },
   {
     id: 'open_office',
@@ -278,7 +278,7 @@ export const PROJECTS: Project[] = [
     ],
     businessValue: 'Mempercepat pengambilan keputusan strategis dari data harian, memotong waktu penyusunan laporan operasional mingguan dari berjam-jam menjadi beberapa detik.',
     mockupBg: 'bg-gradient-to-tr from-slate-950 via-blue-950 to-indigo-950',
-    externalUrl: 'https://openoffice-admin-psi.vercel.app/',
+    externalUrl: 'https://workwell2admin-m3sm.vercel.app/',
   },
   {
     id: 'its_threedi',
@@ -314,7 +314,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'wonosobo_gis',
-    title: 'Website GIS Track Gunung',  
+    title: 'Website GIS Track Gunung', 
     description: 'Website Sistem Informasi Geografis (GIS) wilayah Wonosobo jawa tengah yang saya kembangkan secara responsif untuk memetakan zona kawasan pendakian gunung (Sindoro, Kembang), elevasi puncak, koordinasi titik pos istirahat, dan penyajian data spasial interaktif.',
     techStack: ['HTML', 'CSS', 'GIS Mapping'],
     category: 'Geographic Information System',
@@ -327,6 +327,23 @@ export const PROJECTS: Project[] = [
     businessValue: 'Mempermudah navigasi pendaki gunung secara mandiri dengan integrasi peta presisi tanpa bergantung koneksi server berat.',
     mockupBg: 'bg-gradient-to-tr from-emerald-950 via-green-900 to-teal-950',
     externalUrl: 'https://edivho-wonosobo-uts-kapita.vercel.app/',
+  },
+  {
+    id: 'webgis_uas_final',
+    title: 'WebGIS Interactive Portal',
+    description: 'An interactive WebGIS application designed for dynamic geospatial mapping, spatial data visualization, and location-based information retrieval with high performance and responsive layout.',
+    techStack: ['React.js', 'JavaScript', 'Leaflet / WebGIS', 'Tailwind CSS', 'Geospatial Analysis'],
+    category: 'Geographic Information System',
+    features: [
+      'Interactive Map & Spatial Data Visualization',
+      'Dynamic Map Layer Management & Custom Markers',
+      'Location Search, Filtering & Info Popups',
+      'Adaptive Cross-Device Interface Design',
+    ],
+    businessValue: 'Enhances regional data analysis and location-based data delivery, providing fast and accurate insights directly through the browser.',
+    mockupBg: 'bg-gradient-to-tr from-blue-950 via-teal-950 to-indigo-950',
+    externalUrl: 'https://webgis-uas-final-4i6r.vercel.app/',
+    image: 'aceh.png',
   },
 ];
 
