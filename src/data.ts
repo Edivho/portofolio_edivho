@@ -262,12 +262,12 @@ export const PROJECTS: Project[] = [
     ],
     businessValue: 'Meningkatkan transparansi beban kerja tim sebesar 40% dan mengeliminasi latensi koordinasi menggunakan push-notification bawaan.',
     mockupBg: 'bg-gradient-to-tr from-cyan-950 via-teal-900 to-emerald-950',
-    externalUrl: '',
+    externalUrl: 'https://workwell2booking.vercel.app/',
   },
   {
     id: 'open_office',
     title: 'Open Office Admin Dashboard',
-    description: 'Aplikasi dashboard administrasi eksekutif lengkap yang dirancang khusus untuk memonitor aliran data operasional, melacak kehadiran/aktivitas, serta menghasilkan analisis performa organisasi terstruktur.',
+    description: 'id : Edivho@gmail.com, Pw : admin123 Aplikasi dashboard administrasi eksekutif lengkap yang dirancang khusus untuk memonitor aliran data operasional, melacak kehadiran/aktivitas, serta menghasilkan analisis performa organisasi terstruktur.',
     techStack: ['React.js', 'TypeScript', 'Supabase', 'Analytics Dashboard', 'Management System'],
     category: 'Dashboard Internal Perusahaan',
     features: [
@@ -383,4 +383,4 @@ export const RECRUITER_REASONS: RecruiterReason[] = [
     description: 'Mendandani visual seindah kegunaannya demi menyajikan kepuasan digital yang sesungguhnya ke end-user.',
     extendedDetail: 'Bagi saya, baris kode hanyalah sarana; tujuan utamanya adalah memberdayakan pengguna melalui pengalaman interaksi digital yang menyenangkan, aksesibel, dan benar-benar menuntaskan problem riil mereka.',
   },
-];
+]; 

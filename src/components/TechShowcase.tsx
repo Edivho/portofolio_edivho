@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PROJECTS } from '../data'; // Memastikan data.ts Anda ter-import dengan benar
+import { PROJECTS } from '../data';
 import { 
   Award, 
   ShieldCheck, 
@@ -8,8 +8,9 @@ import {
   Eye
 } from 'lucide-react';
 
-// Import gambar sertifikat asli Anda
-import sertifikatImg from '../assets/images/sertifikat_data_academy.png';
+// Import Gambar dari src/assets/images/
+import sertifikatDataAcademy from '../assets/images/sertifikat_data_academy.png';
+import sertifikatSoftSkill from '../assets/images/Edivho Febrian Putra.png';
 
 interface Project {
   id: string;
@@ -18,6 +19,17 @@ interface Project {
   techStack?: string[];
   category?: string;
   externalUrl?: string;
+}
+
+interface Certificate {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+  badge?: string;
+  skills: string[];
+  fileUrl: string;
 }
 
 // Custom SVG Logos untuk Tech Stack Tab
@@ -339,16 +351,47 @@ const renderProjectMockup = (id: string) => {
   }
 };
 
-const CERTIFICATE_DATA = {
-  title: "Data Science & Analytics Track",
-  issuer: "Cybertrend Data Academy",
-  date: "September 11, 2025",
-  credentialId: "CDA-2025-8893",
-  skills: [
-    "Kompeten dalam analisis prediktif, klasterisasi, dan visualisasi data.",
-    "Verifikasi penyelesaian capstone project berskala industri."
-  ]
-};
+// Data Sertifikat dengan Path yang Sudah Disesuaikan
+const CERTIFICATES_DATA: Certificate[] = [
+  {
+    id: "cda-2025",
+    title: "Data Science & Analytics Track",
+    issuer: "Cybertrend Data Academy",
+    date: "September 11, 2025",
+    credentialId: "CDA-2025-8893",
+    badge: "CERTIFIED PROFESSIONAL",
+    skills: [
+      "Kompeten dalam analisis prediktif, klasterisasi, dan visualisasi data.",
+      "Verifikasi penyelesaian capstone project berskala industri."
+    ],
+    fileUrl: sertifikatDataAcademy
+  },
+  {
+    id: "bakrie-softskill-2026",
+    title: "Soft Skill Training: Teamwork, Conflict Resolution, and Negotiation",
+    issuer: "Universitas Bakrie",
+    date: "June 3, 2026",
+    badge: "CERTIFICATE OF COMPLETION",
+    skills: [
+      "Menguasai kolaborasi tim, resolusi konflik, dan teknik negosiasi efektif.",
+      "Diberikan oleh Biro Kemahasiswaan Universitas Bakrie."
+    ],
+    fileUrl: sertifikatSoftSkill
+  },
+  {
+    id: "mindshare-meetup-2025",
+    title: "Mindshare Meetup 4th: Membangun SDM Unggul melalui Knowledge Management",
+    issuer: "Universitas Bakrie (LPKM & Program Studi Sistem Informasi)",
+    date: "May 26, 2025",
+    badge: "CERTIFICATE OF APPRECIATION",
+    skills: [
+      "Partisipasi aktif dalam pembahasan Knowledge Management & Ketahanan Mental Gen Z menuju Indonesia Emas 2045.",
+      "Diselenggarakan di Universitas Bakrie Auditorium."
+    ],
+    // Mengacu langsung ke file PDF yang berada di folder public/
+    fileUrl: encodeURI("/Sertifikat Peserta Mindshare Meetup 4th - Edivho Febrian Putra.pdf")
+  }
+];
 
 export default function TechShowcase() {
   const [activeTab, setActiveTab] = useState<'projects' | 'certificates' | 'tech_stack'>('projects');
@@ -489,54 +532,63 @@ export default function TechShowcase() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
-              className="max-w-2xl mx-auto"
+              className="max-w-3xl mx-auto space-y-6"
             >
-              <div className="bg-[#0e0e10] border border-zinc-800/90 rounded-3xl p-6 sm:p-8 shadow-2xl text-white relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
-                
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-amber-500/10 text-amber-500 p-3 rounded-2xl border border-amber-500/20">
-                      <Award className="w-7 h-7" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
-                        Certified Professional
-                      </span>
-                      <h3 className="text-2xl font-extrabold text-white mt-2 tracking-tight">{CERTIFICATE_DATA.title}</h3>
-                      <p className="text-sm text-zinc-400 font-medium">Issued by {CERTIFICATE_DATA.issuer}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <hr className="border-zinc-800/80 my-5" />
-
-                <div className="space-y-3.5 my-6">
-                  {CERTIFICATE_DATA.skills.map((skill, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
-                      <p className="text-sm sm:text-base text-zinc-300 leading-relaxed">{skill}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-5 border-t border-zinc-900 mt-8">
-                  <div className="space-y-1 font-mono text-[11px] text-zinc-500">
-                    <p>ID KREDENSIAL: <span className="text-zinc-400 font-sans font-medium">{CERTIFICATE_DATA.credentialId}</span></p>
-                    <p>TANGGAL TERBIT: <span className="text-zinc-400 font-sans font-medium">{CERTIFICATE_DATA.date}</span></p>
-                  </div>
+              {CERTIFICATES_DATA.map((cert) => (
+                <div 
+                  key={cert.id}
+                  className="bg-[#0e0e10] border border-zinc-800/90 rounded-3xl p-6 sm:p-8 shadow-2xl text-white relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
                   
-                  <a
-                    href={sertifikatImg}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-sm px-6 py-3.5 rounded-xl border border-zinc-800 transition-all duration-200 active:scale-95 shadow-md"
-                  >
-                    <Eye className="w-4 h-4 text-amber-500" />
-                    Lihat Sertifikasi
-                  </a>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-amber-500/10 text-amber-500 p-3 rounded-2xl border border-amber-500/20 shrink-0">
+                        <Award className="w-7 h-7" />
+                      </div>
+                      <div>
+                        {cert.badge && (
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                            {cert.badge}
+                          </span>
+                        )}
+                        <h3 className="text-xl sm:text-2xl font-extrabold text-white mt-2 tracking-tight">{cert.title}</h3>
+                        <p className="text-xs sm:text-sm text-zinc-400 font-medium">Issued by {cert.issuer}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr className="border-zinc-800/80 my-5" />
+
+                  <div className="space-y-3.5 my-6">
+                    {cert.skills.map((skill, index) => (
+                      <div key={index} className="flex items-start gap-3">
+                        <ShieldCheck className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">{skill}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-5 border-t border-zinc-900 mt-8">
+                    <div className="space-y-1 font-mono text-[11px] text-zinc-500">
+                      {cert.credentialId && (
+                        <p>ID KREDENSIAL: <span className="text-zinc-400 font-sans font-medium">{cert.credentialId}</span></p>
+                      )}
+                      <p>TANGGAL TERBIT: <span className="text-zinc-400 font-sans font-medium">{cert.date}</span></p>
+                    </div>
+                    
+                    <a
+                      href={cert.fileUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl border border-zinc-800 transition-all duration-200 active:scale-95 shadow-md shrink-0"
+                    >
+                      <Eye className="w-4 h-4 text-amber-500" />
+                      Lihat Sertifikasi
+                    </a>
+                  </div>
                 </div>
-              </div>
+              ))}
             </motion.div>
           )}
 
