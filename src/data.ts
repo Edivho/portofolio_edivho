@@ -12,8 +12,9 @@ export const PERSONAL_INFO = {
   bioEn: 'I am an Information Systems student at Universitas Bakrie with a strong passion for software development, web technologies, and digital product innovation. I enjoy building scalable applications, designing user-friendly interfaces, and solving business problems through technology. My experience spans full-stack web development, database management, UI/UX design, and project leadership through organizational and software development activities.',
   bioId: 'Saya adalah mahasiswa Sistem Informasi di Universitas Bakrie dengan ketertarikan mendalam dalam pengembangan perangkat lunak, teknologi web, dan inovasi produk digital. Saya senang membangun website yang skalabel, merancang antarmuka pengguna yang ramah, serta memecahkan masalah bisnis melalui teknologi. Pengalaman saya mencakup pengembangan web full-stack, manajemen basis data, desain UI/UX, dan kepemimpinan proyek melalui aktivitas organisasi serta pengembangan perangkat lunak.',
   avatar: '/src/assets/images/edivho_badge_photo_1781964134515.png',
-  // Properti tautan sertifikat asli Data Academy
-  certificateUrl: '/Sertifikasi_Data Academy.pdf',
+  
+  // PERBAIKAN: Menghapus spasi pada nama file PDF agar URL valid dan dapat dibuka di semua browser/deployment
+  certificateUrl: '/Sertifikasi_Data_Academy.pdf',
 };
 
 export const BRAND_HEADLINES = [
@@ -383,4 +384,4 @@ export const RECRUITER_REASONS: RecruiterReason[] = [
     description: 'Mendandani visual seindah kegunaannya demi menyajikan kepuasan digital yang sesungguhnya ke end-user.',
     extendedDetail: 'Bagi saya, baris kode hanyalah sarana; tujuan utamanya adalah memberdayakan pengguna melalui pengalaman interaksi digital yang menyenangkan, aksesibel, dan benar-benar menuntaskan problem riil mereka.',
   },
-]; 
+];

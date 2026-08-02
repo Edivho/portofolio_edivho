@@ -287,7 +287,6 @@ const renderProjectMockup = (id: string) => {
     case 'webgis_uas_final':
       return (
         <div className="w-full h-44 bg-[#09131f] border border-blue-900/40 rounded-xl overflow-hidden relative font-sans text-left text-zinc-200 select-none flex flex-col justify-between shadow-inner">
-          {/* Top Bar WebGIS */}
           <div className="flex items-center justify-between bg-zinc-950/80 px-2.5 py-1 text-[8px] border-b border-blue-900/30 z-20">
             <div className="flex items-center gap-1 font-bold text-blue-400">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -299,18 +298,14 @@ const renderProjectMockup = (id: string) => {
             </div>
           </div>
 
-          {/* Canvas Map Simulation */}
           <div className="absolute inset-0 top-6 bg-[#0c1829]">
-            {/* Grid Map Background */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:16px_16px] opacity-40" />
             
-            {/* Spatial Contour/Shape Vector Simulation */}
             <svg className="absolute inset-0 w-full h-full opacity-60 pointer-events-none" viewBox="0 0 200 100">
               <path d="M20 30 Q50 10, 90 40 T160 30 T180 80 T110 90 T40 70 Z" fill="#0284c7" fillOpacity="0.15" stroke="#38bdf8" strokeWidth="0.8" strokeDasharray="2 1" />
               <path d="M60 45 Q90 30, 120 50 T150 70 T100 80 Z" fill="#0ea5e9" fillOpacity="0.25" stroke="#0284c7" strokeWidth="1" />
             </svg>
 
-            {/* Map Markers & Pins */}
             <div className="absolute top-[35%] left-[42%] z-10 flex flex-col items-center group/pin">
               <div className="w-2 h-2 bg-cyan-400 rounded-full border border-white shadow-[0_0_8px_#22d3ee] animate-bounce" />
               <div className="bg-zinc-950/90 border border-cyan-500/50 text-[5px] font-extrabold px-1 py-0.5 rounded text-cyan-300 shadow-md backdrop-blur-xs mt-0.5">
@@ -325,7 +320,6 @@ const renderProjectMockup = (id: string) => {
               </div>
             </div>
 
-            {/* Left Control Panel / Layer Switcher Widget */}
             <div className="absolute top-2 left-2 z-10 bg-zinc-950/85 border border-zinc-800 p-1 rounded-md w-[65px] backdrop-blur-md flex flex-col gap-1 shadow-lg">
               <span className="text-[5px] font-bold text-zinc-400 uppercase tracking-wider">Map Layers</span>
               <div className="flex items-center gap-1 text-[5px] text-cyan-300 bg-cyan-950/60 p-0.5 rounded border border-cyan-800/40">
@@ -338,7 +332,6 @@ const renderProjectMockup = (id: string) => {
               </div>
             </div>
 
-            {/* Map Controls (Zoom In / Out) */}
             <div className="absolute bottom-2 right-2 z-10 bg-zinc-950/80 border border-zinc-800 rounded flex flex-col text-[7px] text-zinc-300 font-bold overflow-hidden">
               <button className="px-1.5 py-0.5 border-b border-zinc-800 hover:bg-zinc-800">+</button>
               <button className="px-1.5 py-0.5 hover:bg-zinc-800">-</button>
@@ -351,8 +344,20 @@ const renderProjectMockup = (id: string) => {
   }
 };
 
-// Data Sertifikat dengan Path yang Sudah Disesuaikan
+// Data Sertifikat dengan URL Publik
 const CERTIFICATES_DATA: Certificate[] = [
+  {
+    id: "aws-cloud-foundations",
+    title: "AWS Academy Graduate - AWS Academy Cloud Foundations",
+    issuer: "AWS Academy",
+    date: "February 12, 2026",
+    badge: "GRADUATE CERTIFICATE",
+    skills: [
+      "Memahami konsep dasar cloud computing, keamanan, arsitektur, dan layanan utama AWS.",
+      "Kompetensi dasar operasional infrastruktur cloud global berbasis Amazon Web Services."
+    ],
+    fileUrl: "/AWS_Academy_Graduate___Cloud_Foundations.pdf"
+  },
   {
     id: "cda-2025",
     title: "Data Science & Analytics Track",
@@ -388,26 +393,31 @@ const CERTIFICATES_DATA: Certificate[] = [
       "Partisipasi aktif dalam pembahasan Knowledge Management & Ketahanan Mental Gen Z menuju Indonesia Emas 2045.",
       "Diselenggarakan di Universitas Bakrie Auditorium."
     ],
-    // Mengacu langsung ke file PDF yang berada di folder public/
-    fileUrl: encodeURI("/Sertifikat Peserta Mindshare Meetup 4th - Edivho Febrian Putra.pdf")
+    fileUrl: "/Sertifikat_Peserta_Mindshare_Meetup_4th_Edivho_Febrian_Putra.pdf"
   }
 ];
 
 export default function TechShowcase() {
   const [activeTab, setActiveTab] = useState<'projects' | 'certificates' | 'tech_stack'>('projects');
 
+  // Helper untuk membuka file PDF atau Gambar secara aman di tab baru
+  const handleOpenCertificate = (url: string) => {
+    if (!url) return;
+    window.open(encodeURI(url), '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section 
       id="portfolio-showcase" 
       className="py-24 px-4 md:px-8 max-w-7xl mx-auto border border-zinc-900/80 relative overflow-hidden bg-[#070709] rounded-[40px] shadow-2xl my-10 select-none text-white"
     >
-      {/* BACKGROUND GRAPHIC LAYER - Premium Grid */}
+      {/* BACKGROUND GRAPHIC LAYER */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#111115_1px,transparent_1px),linear-gradient(to_bottom,#111115_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none opacity-70" />
       
-      {/* TEXTURED OVERLAY - Matte Noise Effect */}
+      {/* TEXTURED OVERLAY */}
       <div className="absolute inset-0 opacity-[0.025] pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZHRoPSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9Ii41Ii8+Cjwvc3ZnPg==')]" />
 
-      {/* AMBIENT GLOW BACKLIGHTS */}
+      {/* AMBIENT GLOW */}
       <div className="absolute top-1/4 left-1/3 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -449,7 +459,7 @@ export default function TechShowcase() {
         </div>
       </div>
 
-      {/* Dynamic Render Showcase Panel */}
+      {/* Dynamic Render Panel */}
       <div className="relative z-10 w-full min-h-[420px]">
         <AnimatePresence mode="wait">
           
@@ -467,12 +477,10 @@ export default function TechShowcase() {
                   key={project.id}
                   className="bg-[#121214]/50 border border-zinc-900 rounded-[32px] p-5 flex flex-col justify-between shadow-xl hover:bg-[#151518]/90 hover:border-zinc-800/80 transition-all duration-300 group border-t-zinc-800/10"
                 >
-                  {/* Mockup Frame */}
                   <div className="w-full relative rounded-2xl overflow-hidden mb-5 transform group-hover:scale-[1.01] transition-transform duration-300">
                     {renderProjectMockup(project.id)}
                   </div>
 
-                  {/* Text Contents */}
                   <div className="px-2 flex-1 flex flex-col justify-between text-left">
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-2">
@@ -490,7 +498,6 @@ export default function TechShowcase() {
                       </p>
                     </div>
 
-                    {/* Bottom Utility Bar: techStack & Live URL Button */}
                     <div className="flex items-center justify-between gap-4 pt-3 border-t border-zinc-900/60">
                       <div className="flex items-center gap-1.5 overflow-hidden truncate max-w-[65%]">
                         {project.techStack?.slice(0, 3).map((tag, idx) => (
@@ -577,15 +584,14 @@ export default function TechShowcase() {
                       <p>TANGGAL TERBIT: <span className="text-zinc-400 font-sans font-medium">{cert.date}</span></p>
                     </div>
                     
-                    <a
-                      href={cert.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl border border-zinc-800 transition-all duration-200 active:scale-95 shadow-md shrink-0"
+                    <button
+                      type="button"
+                      onClick={() => handleOpenCertificate(cert.fileUrl)}
+                      className="flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl border border-zinc-800 transition-all duration-200 active:scale-95 shadow-md shrink-0 cursor-pointer"
                     >
                       <Eye className="w-4 h-4 text-amber-500" />
                       Lihat Sertifikasi
-                    </a>
+                    </button>
                   </div>
                 </div>
               ))}
